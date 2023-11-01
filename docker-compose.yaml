@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mongodb:
+      ports:
+        - "27017:27017"
+      image: mongo:5.0.22-focal
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=user
+        - MONGO_INITDB_ROOT_PASSWORD=pass
+      volumes:
+        - type: bind
+          source: ./data
+          target: /data/db

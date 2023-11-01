@@ -1,4 +1,5 @@
 import os
+import yaml
 from typing import Optional, List
 
 from fastapi import FastAPI, Body, HTTPException, status
@@ -12,12 +13,15 @@ from bson import ObjectId
 import motor.motor_asyncio
 from pymongo import ReturnDocument
 
+with open("config.yaml") as f:
+    cfg = yaml.load(f, Loader=yaml.FullLoader)
+
 
 app = FastAPI(
     title="Student Course API",
     summary="A sample application showing how to use FastAPI to add a ReST API to a MongoDB collection.",
 )
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
+client = motor.motor_asyncio.AsyncIOMotorClient(cfg['mongodb'])
 db = client.college
 student_collection = db.get_collection("students")
 

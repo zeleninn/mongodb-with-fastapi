@@ -1,5 +1,6 @@
 import os
 import yaml
+import uvicorn
 from typing import Optional, List
 
 from fastapi import FastAPI, Body, HTTPException, status
@@ -191,3 +192,6 @@ async def delete_student(id: str):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     raise HTTPException(status_code=404, detail=f"Student {id} not found")
+
+if __name__ == "__main__":
+    uvicorn.run("app:app", host='127.0.0.1', port=8000, reload=True)
